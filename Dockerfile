@@ -31,12 +31,12 @@ RUN apt-get update && \
 
 # Setup Environment Variables
 
-ENV COMMIT="f5c21a5" \
+ENV COMMIT="6d82fec" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
 ENV SRC_DIR=${WORK_DIR}/swift \
-    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-2-${COMMIT}-with-sourcekit"
+    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-3-${COMMIT}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
 ENV SWIFT_INSTALL_DIR="${SRC_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
