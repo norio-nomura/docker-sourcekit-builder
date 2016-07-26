@@ -31,12 +31,12 @@ RUN apt-get update && \
 
 # Setup Environment Variables
 
-ENV COMMIT="6d82fec" \
+ENV REVISION="9946dca" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
 ENV SRC_DIR=${WORK_DIR}/swift \
-    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-3-${COMMIT}-with-sourcekit"
+    TOOLCHAIN_VERSION="swift-DEVELOPMENT-SNAPSHOT-2016-07-25-a-${REVISION}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
 ENV SWIFT_INSTALL_DIR="${SRC_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
@@ -50,14 +50,20 @@ RUN git clone https://github.com/norio-nomura/swift-dev.git && \
 # Using commit hash will avoid caching by branch name.
     cd ${WORK_DIR} && \
     git fetch && \
-    git checkout ${COMMIT} && \
+    git checkout ${REVISION} && \
     git submodule update --init --recursive && \
 
 # Build Swift installer package at ${SWIFT_INSTALLABLE_PACKAGE}
     cd ${SRC_DIR} && \
-    utils/build-script --preset="buildbot_linux_libdispatch" \
+    utils/build-script \
+      --preset-file="${WORK_DIR}/build-presets-for-sourcekit-linux.ini" \
+      --preset="buildbot_linux_libdispatch" \
       install_destdir="${SWIFT_INSTALL_DIR}" && \
-    utils/build-script --preset="buildbot_linux" \
+    utils/build-script \
+      --preset-file="${WORK_DIR}/build-presets-for-sourcekit-linux.ini" \
+      --preset="buildbot_linux" \
+      -- \
+      --extra-cmake-options="-DSWIFT_BUILD_SOURCEKIT:BOOL=TRUE" \
       install_destdir="${SWIFT_INSTALL_DIR}" \
       installable_package="${SWIFT_INSTALLABLE_PACKAGE}" && \
 
