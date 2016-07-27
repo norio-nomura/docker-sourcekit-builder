@@ -10,6 +10,7 @@ RUN apt-get update && \
       libblocksruntime0 \
       libedit2 \
       libkqueue0 \
+      libpython2.7-dev \
       libxml2 \
       python2.7 \
       && \
