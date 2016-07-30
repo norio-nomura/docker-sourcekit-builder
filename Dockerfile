@@ -1,4 +1,4 @@
-FROM ubuntu:15.10
+FROM ubuntu:14.04
 MAINTAINER Norio Nomura <norio.nomura@gmail.com>
 
 # Install Dependencies
@@ -6,8 +6,8 @@ MAINTAINER Norio Nomura <norio.nomura@gmail.com>
 RUN apt-get update && \
     apt-get install -y \
       autoconf \
-      clang \
-      cmake \
+      build-essential \
+      clang-3.5 \
       git \
       icu-devtools \
       libblocksruntime-dev \
@@ -24,19 +24,34 @@ RUN apt-get update && \
       pkg-config \
       python \
       swig \
+      systemtap-sdt-dev \
       uuid-dev \
+      wget \
       && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.5 100 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.5 100 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Build and Install CMake
+RUN export CMAKE_VERSION="3.6.1" && \
+    wget https://cmake.org/files/v3.6/cmake-${CMAKE_VERSION}.tar.gz && \
+    tar zxf cmake-${CMAKE_VERSION}.tar.gz && \
+    cd cmake-${CMAKE_VERSION} && \
+    ./configure && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf cmake-${CMAKE_VERSION}
+
 # Setup Environment Variables
 
-ENV REVISION="9946dca" \
+ENV REVISION="e3209f9" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
 ENV SRC_DIR=${WORK_DIR}/swift \
-    TOOLCHAIN_VERSION="swift-DEVELOPMENT-SNAPSHOT-2016-07-25-a-${REVISION}-with-sourcekit"
+    TOOLCHAIN_VERSION="swift-DEVELOPMENT-SNAPSHOT-2016-07-28-a-${REVISION}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
 ENV SWIFT_INSTALL_DIR="${SRC_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
@@ -73,7 +88,7 @@ RUN git clone https://github.com/norio-nomura/swift-dev.git && \
     rm -rf ${WORK_DIR}
 
 # Output ${OUTPUT_DIR} as build context
-COPY Dockerfile-swift-15.10 ${OUTPUT_DIR}/Dockerfile
+COPY Dockerfile-swift-14.04 ${OUTPUT_DIR}/Dockerfile
 RUN echo "ADD ${ARCHIVE} /\nENV LD_LIBRARY_PATH /usr/lib/swift/linux/:\${LD_LIBRARY_PATH}\n">>${OUTPUT_DIR}/Dockerfile
 ADD entrypoint /
 ENTRYPOINT ["/entrypoint"]
