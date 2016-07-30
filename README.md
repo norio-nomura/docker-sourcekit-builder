@@ -1,4 +1,4 @@
-# docker-sourcekit-builder
+# `docker-sourcekit-builder` builds Swift Toolchain with `libsourcekitdInProc.so`
 
 ## Build `sourcekit-builder` image
 ```console
