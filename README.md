@@ -12,6 +12,6 @@ docker run --rm sourcekit-builder:3020160804a context | docker build -t norionom
 
 ## Extract Installer Package from `sourcekit-builder`
 ```console
-docker run --rm sourcekit-builder:3020160729a context|tar xv - "*.tar.gz"
+docker run --rm sourcekit-builder:3020160804a context|tar xv - "*.tar.gz"
 x ./swift-DEVELOPMENT-SNAPSHOT-2016-08-04-a-c8037c3-with-sourcekit.tar.gz
 ```
