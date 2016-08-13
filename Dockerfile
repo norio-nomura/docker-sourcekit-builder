@@ -46,12 +46,12 @@ RUN export CMAKE_VERSION="3.6.1" && \
 
 # Setup Environment Variables
 
-ENV REVISION="4df3e19" \
+ENV REVISION="7336055" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
 ENV SRC_DIR=${WORK_DIR}/swift \
-    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-4-${REVISION}-with-sourcekit"
+    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-5-${REVISION}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
 ENV SWIFT_INSTALL_DIR="${SRC_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
