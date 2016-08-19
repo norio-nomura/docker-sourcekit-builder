@@ -45,6 +45,8 @@ RUN export CMAKE_VERSION="3.6.1" && \
     cd .. && \
     rm -rf cmake-${CMAKE_VERSION}
 
+RUN groupadd -r swift-dev && useradd -r -g swift-dev swift-dev
+
 # Setup Environment Variables
 
 ENV REVISION="7336055" \
@@ -54,28 +56,29 @@ ENV REVISION="7336055" \
 ENV SRC_DIR=${WORK_DIR}/swift \
     TOOLCHAIN_VERSION="swift-3.0-PREVIEW-5-${REVISION}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
-ENV SWIFT_INSTALL_DIR="${SRC_DIR}/swift-nightly-install" \
+ENV SWIFT_INSTALL_DIR="${WORK_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
 
-# Make ${OUTPUT_DIR}
-RUN mkdir -p ${OUTPUT_DIR}
+# Make ${OUTPUT_DIR} ${WORK_DIR}
+RUN mkdir -p ${OUTPUT_DIR} && chown swift-dev:swift-dev ${OUTPUT_DIR} && \
+    mkdir -p ${WORK_DIR} && chown swift-dev:swift-dev ${WORK_DIR}
 
 # Clone & Check Out to ${WORK_DIR}
-RUN git clone https://github.com/norio-nomura/swift-dev.git && \
+RUN sudo --user=swift-dev git clone https://github.com/norio-nomura/swift-dev.git && \
 
 # Using commit hash will avoid caching by branch name.
     cd ${WORK_DIR} && \
-    git fetch && \
-    git checkout ${REVISION} && \
-    git submodule update --init --recursive && \
+    sudo --user=swift-dev git fetch && \
+    sudo --user=swift-dev git checkout ${REVISION} && \
+    sudo --user=swift-dev git submodule update --init --recursive && \
 
 # Build Swift installer package at ${SWIFT_INSTALLABLE_PACKAGE}
     cd ${SRC_DIR} && \
-    utils/build-script \
+    sudo --user=swift-dev utils/build-script \
       --preset-file="${WORK_DIR}/build-presets-for-sourcekit-linux.ini" \
       --preset="buildbot_linux_libdispatch" \
       install_destdir="${SWIFT_INSTALL_DIR}" && \
-    utils/build-script \
+    sudo --user=swift-dev utils/build-script \
       --preset-file="${WORK_DIR}/build-presets-for-sourcekit-linux.ini" \
       --preset="buildbot_linux" \
       -- \
