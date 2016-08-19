@@ -26,6 +26,7 @@ RUN apt-get update && \
       swig \
       systemtap-sdt-dev \
       uuid-dev \
+      wamerican \
       wget \
       && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.5 100 && \
