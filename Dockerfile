@@ -49,12 +49,12 @@ RUN groupadd -r swift-dev && useradd -r -g swift-dev swift-dev
 
 # Setup Environment Variables
 
-ENV REVISION="7336055" \
+ENV REVISION="2576271" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
 ENV SRC_DIR=${WORK_DIR}/swift \
-    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-5-${REVISION}-with-sourcekit"
+    TOOLCHAIN_VERSION="swift-3.0-PREVIEW-6-${REVISION}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
 ENV SWIFT_INSTALL_DIR="${WORK_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
