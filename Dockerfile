@@ -8,10 +8,12 @@ RUN apt-get update && \
       autoconf \
       build-essential \
       clang-3.5 \
+      curl \
       git \
       icu-devtools \
       libblocksruntime-dev \
       libbsd-dev \
+      libcurl4-openssl-dev \
       libedit-dev \
       libicu-dev \
       libkqueue-dev \
@@ -27,7 +29,6 @@ RUN apt-get update && \
       systemtap-sdt-dev \
       uuid-dev \
       wamerican \
-      wget \
       && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.5 100 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.5 100 && \
@@ -36,7 +37,7 @@ RUN apt-get update && \
 
 # Build and Install CMake
 RUN export CMAKE_VERSION="3.6.1" && \
-    wget https://cmake.org/files/v3.6/cmake-${CMAKE_VERSION}.tar.gz && \
+    curl -O https://cmake.org/files/v3.6/cmake-${CMAKE_VERSION}.tar.gz && \
     tar zxf cmake-${CMAKE_VERSION}.tar.gz && \
     cd cmake-${CMAKE_VERSION} && \
     ./configure && \
