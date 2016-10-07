@@ -7,7 +7,7 @@ RUN apt-get update && \
     apt-get install -y \
       autoconf \
       build-essential \
-      clang-3.5 \
+      clang-3.6 \
       curl \
       git \
       icu-devtools \
@@ -30,8 +30,8 @@ RUN apt-get update && \
       uuid-dev \
       wamerican \
       && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.5 100 && \
-    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.5 100 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.6 100 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.6 100 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
