@@ -50,7 +50,7 @@ RUN groupadd -r swift-dev && useradd -r -g swift-dev swift-dev
 
 # Setup Environment Variables
 
-ENV REVISION="0a02671" \
+ENV REVISION="1efeada" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
