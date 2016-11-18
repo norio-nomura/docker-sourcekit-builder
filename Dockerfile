@@ -29,6 +29,7 @@ RUN apt-get update && \
       swig \
       systemtap-sdt-dev \
       uuid-dev \
+      vim-tiny \
       wamerican \
       && \
     apt-get clean && \
