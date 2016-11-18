@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Norio Nomura <norio.nomura@gmail.com>
 
 # Install Dependencies
@@ -7,7 +7,8 @@ RUN apt-get update && \
     apt-get install -y \
       autoconf \
       build-essential \
-      clang-3.6 \
+      clang \
+      cmake \
       curl \
       git \
       icu-devtools \
@@ -30,21 +31,8 @@ RUN apt-get update && \
       uuid-dev \
       wamerican \
       && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.6 100 && \
-    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.6 100 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Build and Install CMake
-RUN export CMAKE_VERSION="3.6.1" && \
-    curl -O https://cmake.org/files/v3.6/cmake-${CMAKE_VERSION}.tar.gz && \
-    tar zxf cmake-${CMAKE_VERSION}.tar.gz && \
-    cd cmake-${CMAKE_VERSION} && \
-    ./configure && \
-    make && \
-    make install && \
-    cd .. && \
-    rm -rf cmake-${CMAKE_VERSION}
 
 RUN groupadd -r swift-dev && useradd -r -g swift-dev swift-dev
 
@@ -93,7 +81,7 @@ RUN sudo --user=swift-dev git clone https://github.com/norio-nomura/swift-dev.gi
     rm -rf ${WORK_DIR}
 
 # Output ${OUTPUT_DIR} as build context
-COPY Dockerfile-swift-14.04 ${OUTPUT_DIR}/Dockerfile
+COPY Dockerfile-swift-16.04 ${OUTPUT_DIR}/Dockerfile
 RUN echo "ADD ${ARCHIVE} /\nENV LD_LIBRARY_PATH /usr/lib/swift/linux/:\${LD_LIBRARY_PATH}\n">>${OUTPUT_DIR}/Dockerfile
 ADD entrypoint /
 ENTRYPOINT ["/entrypoint"]
