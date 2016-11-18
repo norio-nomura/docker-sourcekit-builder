@@ -26,6 +26,7 @@ RUN apt-get update && \
       ninja-build \
       pkg-config \
       python \
+      sudo \
       swig \
       systemtap-sdt-dev \
       uuid-dev \
