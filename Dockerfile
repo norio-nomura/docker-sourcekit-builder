@@ -67,10 +67,6 @@ RUN sudo --user=swift-dev git clone https://github.com/norio-nomura/swift-dev.gi
     cd ${SRC_DIR} && \
     sudo --user=swift-dev utils/build-script \
       --preset-file="${WORK_DIR}/build-presets-for-sourcekit-linux.ini" \
-      --preset="buildbot_linux_libdispatch" \
-      install_destdir="${SWIFT_INSTALL_DIR}" && \
-    sudo --user=swift-dev utils/build-script \
-      --preset-file="${WORK_DIR}/build-presets-for-sourcekit-linux.ini" \
       --preset="buildbot_linux" \
       -- \
       --extra-cmake-options="-DSWIFT_BUILD_SOURCEKIT:BOOL=TRUE" \
