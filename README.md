@@ -2,16 +2,16 @@
 
 ## Build `sourcekit-builder` image
 ```console
-docker build -t sourcekit-builder:3120170208a https://github.com/norio-nomura/docker-sourcekit-builder.git
+docker build -t sourcekit-builder:3120170209a https://github.com/norio-nomura/docker-sourcekit-builder.git
 ```
 
 ## Build `sourcekit` image using context created by `sourcekit-builder`
 ```console
-docker run --rm sourcekit-builder:3120170208a context | docker build -t norionomura/sourcekit:3120170208a -
+docker run --rm sourcekit-builder:3120170209a context | docker build -t norionomura/sourcekit:3120170209a -
 ```
 
 ## Extract Installer Package from `sourcekit-builder`
 ```console
-docker run --rm sourcekit-builder:3120170208a context | tar xv - "*.tar.gz"
-x ./swift-3.1-DEVELOPMENT-SNAPSHOT-2017-02-08-a-<hash of commit in swift-dev>-with-sourcekit.tar.gz
+docker run --rm sourcekit-builder:3120170209a context | tar xv - "*.tar.gz"
+x ./swift-3.1-DEVELOPMENT-SNAPSHOT-2017-02-09-a-<hash of commit in swift-dev>-with-sourcekit.tar.gz
 ```
