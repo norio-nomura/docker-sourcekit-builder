@@ -79,6 +79,6 @@ RUN sudo --user=swift-dev git clone https://github.com/norio-nomura/swift-dev.gi
 
 # Output ${OUTPUT_DIR} as build context
 COPY Dockerfile-swift-16.04 ${OUTPUT_DIR}/Dockerfile
-RUN echo "ADD ${ARCHIVE} /\nENV LD_LIBRARY_PATH /usr/lib/swift/linux/:\${LD_LIBRARY_PATH}\n">>${OUTPUT_DIR}/Dockerfile
+RUN echo "ADD ${ARCHIVE} /\n">>${OUTPUT_DIR}/Dockerfile
 ADD entrypoint /
 ENTRYPOINT ["/entrypoint"]
