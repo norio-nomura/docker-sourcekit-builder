@@ -79,6 +79,6 @@ RUN sudo --user=swift-dev git clone https://github.com/norio-nomura/swift-dev.gi
 
 # Output ${OUTPUT_DIR} as build context
 COPY Dockerfile-swift-16.04 ${OUTPUT_DIR}/Dockerfile
-RUN echo "ADD ${ARCHIVE} /\nRUN ln -sf /usr/lib/sourcekitdInProc.framework/sourcekitdInProc /usr/lib/libsourcekitdInProc.so\n">>${OUTPUT_DIR}/Dockerfile
+RUN echo "ADD ${ARCHIVE} /\n">>${OUTPUT_DIR}/Dockerfile
 ADD entrypoint /
 ENTRYPOINT ["/entrypoint"]
