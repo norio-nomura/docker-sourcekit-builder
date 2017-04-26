@@ -40,12 +40,12 @@ RUN groupadd -r swift-dev && useradd -r -g swift-dev swift-dev
 
 # Setup Environment Variables
 
-ENV REVISION="bbcc23b" \
+ENV REVISION="3f82132" \
     OUTPUT_DIR="/swift" \
     WORK_DIR="/swift-dev"
 
 ENV SRC_DIR=${WORK_DIR}/swift \
-    TOOLCHAIN_VERSION="swift-3.1-RELEASE-${REVISION}-with-sourcekit"
+    TOOLCHAIN_VERSION="swift-3.1.1-RELEASE-${REVISION}-with-sourcekit"
 ENV ARCHIVE="${TOOLCHAIN_VERSION}.tar.gz"
 ENV SWIFT_INSTALL_DIR="${WORK_DIR}/swift-nightly-install" \
     SWIFT_INSTALLABLE_PACKAGE="${OUTPUT_DIR}/${ARCHIVE}"
@@ -79,6 +79,6 @@ RUN sudo --user=swift-dev git clone https://github.com/norio-nomura/swift-dev.gi
 
 # Output ${OUTPUT_DIR} as build context
 COPY Dockerfile-swift-16.04 ${OUTPUT_DIR}/Dockerfile
-RUN echo "ADD ${ARCHIVE} /\nRUN ln -sf /usr/lib/sourcekitdInProc.framework/sourcekitdInProc /usr/lib/libsourcekitdInProc.so\n">>${OUTPUT_DIR}/Dockerfile
+RUN echo "ADD ${ARCHIVE} /\n">>${OUTPUT_DIR}/Dockerfile
 ADD entrypoint /
 ENTRYPOINT ["/entrypoint"]
