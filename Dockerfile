@@ -29,6 +29,7 @@ RUN apt-get update && \
       sudo \
       swig \
       systemtap-sdt-dev \
+      tzdata \
       uuid-dev \
       vim-tiny \
       wamerican \
